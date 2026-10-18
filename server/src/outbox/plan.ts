@@ -122,6 +122,33 @@ export async function browseFolder(ownerId: string, q: FolderQuery) {
   };
 }
 
+/** One delivery with its full body, for the reading view. Scoped to the owner. */
+export async function readDelivery(ownerId: string, id: string) {
+  const { rows } = await pg.query(
+    `SELECT d.id, d.recipient, d.state, d.due_at, d.sent_at, d.last_error, d.preview_url,
+            b.subject, b.body, m.address AS sender
+       FROM delivery d
+       JOIN batch b   ON b.id = d.batch_id
+       JOIN mailbox m ON m.id = b.mailbox_id
+      WHERE d.owner_id = $1 AND d.id = $2`,
+    [ownerId, id],
+  );
+  const r = rows[0];
+  if (!r) return null;
+  return {
+    id: r.id,
+    recipient: r.recipient,
+    subject: r.subject,
+    body: r.body,
+    sender: r.sender,
+    state: r.state,
+    dueAt: r.due_at,
+    sentAt: r.sent_at,
+    error: r.last_error,
+    previewUrl: r.preview_url,
+  };
+}
+
 export async function folderTotals(ownerId: string): Promise<Record<Folder, number>> {
   const { rows } = await pg.query<{ scheduled: number; sent: number }>(
     `SELECT count(*) FILTER (WHERE state IN ('scheduled', 'throttled', 'sending'))::int AS scheduled,

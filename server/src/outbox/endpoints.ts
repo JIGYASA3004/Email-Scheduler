@@ -4,7 +4,7 @@ import { findAccount } from '../identity/accounts';
 import { signedIn, uidOf } from '../identity/google';
 import { listMailboxes } from '../delivery/mailboxes';
 import { sentThisHour } from '../delivery/throttle';
-import { browseFolder, folderTotals, planBatch, type Folder } from './plan';
+import { browseFolder, folderTotals, planBatch, readDelivery, type Folder } from './plan';
 
 const ADDRESS = /^[^\s@<>(),;:"]+@[^\s@<>(),;:"]+\.[a-z]{2,}$/i;
 const MAX_RECIPIENTS = 10_000;
@@ -82,6 +82,16 @@ outbox.get('/folders/:folder', async (req, res) => {
   const limit = Math.min(200, Math.max(1, Number(req.query.limit) || 50));
   const offset = Math.max(0, Number(req.query.offset) || 0);
   res.json(await browseFolder(uidOf(res), { folder, search: search || undefined, limit, offset }));
+});
+
+outbox.get('/deliveries/:id', async (req, res) => {
+  const id = String(req.params.id);
+  const found = /^[0-9a-f-]{36}$/i.test(id) ? await readDelivery(uidOf(res), id) : null;
+  if (!found) {
+    res.status(404).json({ error: 'Email not found' });
+    return;
+  }
+  res.json(found);
 });
 
 outbox.get('/totals', async (_req, res) => {

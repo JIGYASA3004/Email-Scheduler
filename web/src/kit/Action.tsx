@@ -5,9 +5,9 @@ type Tone = 'solid' | 'outline' | 'soft' | 'plain';
 
 const TONE: Record<Tone, string> = {
   solid: 'btn btn-primary',
-  outline: 'btn btn-outline-primary',
-  soft: 'btn btn-light border',
-  plain: 'btn btn-link text-body-secondary px-2',
+  outline: 'btn btn-outline-primary rounded-pill',
+  soft: 'btn btn-soft',
+  plain: 'btn btn-link text-body-secondary p-1',
 };
 
 interface ActionProps extends ButtonHTMLAttributes<HTMLButtonElement> {

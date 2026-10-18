@@ -1,4 +1,4 @@
-import type { BatchPayload, BatchReceipt, FolderName, FolderPage, FolderTotals, Profile, SenderList } from '../model';
+import type { BatchPayload, BatchReceipt, DeliveryDetail, FolderName, FolderPage, FolderTotals, Profile, SenderList } from '../model';
 import { request } from './request';
 
 export const server = {
@@ -6,6 +6,7 @@ export const server = {
   signOut: () => request<void>('/auth/logout', { method: 'POST' }),
   senders: () => request<SenderList>('/api/mailboxes'),
   totals: () => request<FolderTotals>('/api/totals'),
+  delivery: (id: string) => request<DeliveryDetail>(`/api/deliveries/${encodeURIComponent(id)}`),
   folder: (name: FolderName, search: string) =>
     request<FolderPage>(`/api/folders/${name}?limit=100${search ? `&q=${encodeURIComponent(search)}` : ''}`),
   createBatch: (payload: BatchPayload, idempotencyKey: string) =>

@@ -22,9 +22,9 @@ email-scheduler/
         ├── model.ts          API types
         ├── net/              fetch wrapper + typed endpoints
         ├── hooks/            useFetched (load/poll), useHashView (tab in URL)
-        ├── kit/              reusable UI: Action, Dialog, Glyph, Portrait, StateTag, Blank, Notice (toasts)
+        ├── kit/              reusable UI: Action, Brand, Glyph, Portrait, StateTag, Blank, Notice (toasts)
         ├── util/             address harvesting, time formatting
-        └── views/            Welcome, TopBar, Overview, DeliveryTable, ComposeDialog, LeadDrop
+        └── views/            Welcome, Rail, Ledger, Reader, Writer, LaterMenu, LeadChips
 ```
 
 Minimal dependencies on purpose. Server: `express`, `bullmq`, `ioredis`, `pg` and `nodemailer`.
@@ -203,11 +203,12 @@ per-batch hourly windows. The Lua approach costs one Redis round trip per job an
 
 **Frontend**
 - [x] Real Google OAuth login, then redirect to the dashboard
-- [x] Top navbar with name, email, avatar and logout
-- [x] Stat cards, Scheduled / Sent tabs, primary **Compose New Email** button
-- [x] Compose modal: sender, subject, body, CSV/TXT upload (drag & drop) or paste with a live count of detected addresses, start time (+ quick presets), delay, hourly limit
-- [x] Tables: email, subject, scheduled/sent time, status. Loading skeletons, empty states and error states with retry
-- [x] Toast notifications, auto-refresh every 5 s, search box
+- [x] Sidebar account card with name, email, avatar and logout
+- [x] Scheduled / Sent folders with counts and a primary **Compose** button
+- [x] Compose page: sender, recipient chips, CSV/TXT **Upload List** with a count of detected addresses, subject, delay, hourly limit, body, and a **Send Later** popover (date-time picker + presets)
+- [x] Email lists: recipient, subject + preview, scheduled time or sent/failed status. Loading skeletons, empty states and error states with retry
+- [x] Reading view for a single email, with a link to the captured message on Ethereal
+- [x] Search, status filter, starring (per browser), toast notifications, auto-refresh every 5 s
 - [x] Typed API layer, reusable components, Bootstrap styling, responsive down to phone width
 
 ---
@@ -219,7 +220,7 @@ per-batch hourly windows. The Lua approach costs one Redis round trip per job an
   in the UI.
 - **There's no Bull Board UI.** Queue state shows in the app's Scheduled and Sent tabs. To inspect raw jobs, use Redis
   directly, e.g. `redis-cli ZCARD bull:outbound-mail:delayed`.
-- **The UI doesn't follow the Figma.** It's a Bootstrap dashboard of its own: top navbar, stat cards, tabs, table and compose modal.
+- **The UI follows the Figma layout with its own colour scheme** (cobalt instead of green) and an "Outbox" wordmark instead of the original logo. The compose body is plain text: the rich-text toolbar and attachments from the design are not implemented.
 - **Hour windows are clock hours (UTC)**, not a sliding 60 minutes. That's simpler to reason about and to show.
 - **The email body is plain text.** No rich-text editor or attachments.
 - **The schema is applied on boot** with `CREATE TABLE IF NOT EXISTS`, which is enough here. A real service would

@@ -57,3 +57,7 @@ export interface BatchReceipt {
   queued: number;
   replayed: boolean;
 }
+
+export interface DeliveryDetail extends Omit<DeliveryItem, 'snippet'> {
+  body: string;
+}
