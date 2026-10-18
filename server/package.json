@@ -1,0 +1,31 @@
+{
+  "name": "mail-scheduler-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch --env-file=.env src/main.ts",
+    "dev:api": "tsx --env-file=.env src/main.ts --role=api",
+    "dev:worker": "tsx --env-file=.env src/main.ts --role=worker",
+    "build": "tsc -p tsconfig.json",
+    "start": "node --env-file=.env dist/main.js",
+    "start:api": "node --env-file=.env dist/main.js --role=api",
+    "start:worker": "node --env-file=.env dist/main.js --role=worker",
+    "flood": "tsx --env-file=.env scripts/flood.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "bullmq": "^6.3.16",
+    "express": "^5.3.0",
+    "ioredis": "^6.0.0",
+    "nodemailer": "^10.1.2",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.5",
+    "@types/nodemailer": "^8.0.2",
+    "@types/pg": "^8.23.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

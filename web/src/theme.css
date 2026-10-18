@@ -1,0 +1,168 @@
+/* Bootstrap theme overrides (indigo palette) + a few custom pieces. */
+:root {
+  --ink-indigo: #4f46e5;
+  --ink-indigo-deep: #4338ca;
+  --ink-indigo-wash: #eef2ff;
+
+  --bs-font-sans-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --bs-body-font-size: 0.92rem;
+  --bs-primary: var(--ink-indigo);
+  --bs-primary-rgb: 79, 70, 229;
+  --bs-primary-bg-subtle: var(--ink-indigo-wash);
+  --bs-primary-text-emphasis: #3730a3;
+  --bs-link-color-rgb: 79, 70, 229;
+  --bs-border-radius: 0.6rem;
+}
+
+body {
+  background: #f6f7fb;
+}
+
+.app-canvas {
+  background: #f6f7fb;
+}
+
+.tiny {
+  font-size: 0.74rem;
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--ink-indigo);
+  --bs-btn-border-color: var(--ink-indigo);
+  --bs-btn-hover-bg: var(--ink-indigo-deep);
+  --bs-btn-hover-border-color: var(--ink-indigo-deep);
+  --bs-btn-active-bg: var(--ink-indigo-deep);
+  --bs-btn-disabled-bg: var(--ink-indigo);
+  --bs-btn-disabled-border-color: var(--ink-indigo);
+}
+.btn-outline-primary {
+  --bs-btn-color: var(--ink-indigo);
+  --bs-btn-border-color: var(--ink-indigo);
+  --bs-btn-hover-bg: var(--ink-indigo);
+  --bs-btn-hover-border-color: var(--ink-indigo);
+  --bs-btn-active-bg: var(--ink-indigo-deep);
+}
+.nav-pills {
+  --bs-nav-pills-link-active-bg: var(--ink-indigo);
+  --bs-nav-link-color: #495057;
+  --bs-nav-link-hover-color: var(--ink-indigo);
+  gap: 0.25rem;
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: #a5b4fc;
+  box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.15);
+}
+
+/* brand */
+.brand-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #6366f1, #4338ca);
+  color: #fff;
+}
+
+/* sign-in */
+.hero-pane {
+  background: radial-gradient(circle at 20% 20%, #6366f1 0%, #312e81 60%, #1e1b4b 100%);
+}
+.hero-copy {
+  max-width: 460px;
+  margin: 0 auto;
+}
+.hero-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.google-btn {
+  font-size: 0.95rem;
+  border-color: #d0d5dd;
+  color: #1f2937;
+}
+.google-btn:hover {
+  background: #f9fafb;
+  color: #111827;
+  border-color: #c0c6d0;
+}
+
+/* stats */
+.stat-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.tint-indigo { background: #eef2ff; color: #4f46e5; }
+.tint-green { background: #ecfdf3; color: #16a34a; }
+.tint-amber { background: #fff7ed; color: #ea580c; }
+.tint-sky { background: #f0f9ff; color: #0284c7; }
+
+/* table */
+.search-group {
+  width: 260px;
+}
+.delivery-table thead th {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+  font-weight: 600;
+  background: #fafbff;
+}
+.delivery-table td,
+.delivery-table th {
+  padding: 0.75rem 1rem;
+}
+.state-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.state-dot i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.blank-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--ink-indigo-wash);
+  color: var(--ink-indigo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* compose */
+.lead-drop {
+  border: 2px dashed #c7d2fe;
+  background: #fafbff;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.lead-drop:hover,
+.lead-drop.is-over {
+  background: var(--ink-indigo-wash);
+  border-color: var(--ink-indigo);
+}
+
+@media (max-width: 576px) {
+  .search-group {
+    width: 100%;
+  }
+}
